@@ -1,0 +1,1424 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nossa História</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Caveat:wght@500;600&display=swap"
+    rel="stylesheet">
+
+    <style>
+
+       :root {
+        --rosa-fundo: #f8dce8;
+        --rosa-cartao: #fff7fa;
+        --rosa-borda: #e7b8c7;
+
+        --vinho: #720519;
+        --vinho-medio: #853348;
+        --vinho-botao: #a7283f;
+        --vinho-musica: #b97380;
+
+        --rosa-claro: #fff1f6;
+        --rosa-escuro: #e596b5;
+
+        --vinho-botao-rgb: 167, 40, 63;
+
+        --vinho-rgb: 114, 5, 25; /* MESMO VINHO, EM NÚMEROS (EXPLICO ABAIXO) */
+} 
+        /* ================= GERAL ================= */
+        body {
+            background: linear-gradient(160deg, var(--rosa-claro) 0%, var(--rosa-fundo) 50%, var(--rosa-escuro) 100%);
+            display: flex;
+            flex-direction: column; /* ALINHA OS ITENS EM COLUNA */
+            justify-content: center; /* CENTRALIZA NA VERTICAL */
+            align-items: center; /* CENTRALIZA NA HORIZONTAL */
+            min-height: 100vh; /* GARANTE PELO MENOS A ALTURA DA TELA */
+            margin: 0;
+            position: relative;
+            font-family: sans-serif;
+        }
+
+        h1 {
+            color: var(--vinho); /* COR DO TITULO */
+        }
+
+        /* ================= TELA DE LOGIN ================= */
+        #tela-login {
+
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            width: 100%;
+            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+            padding: 20px;
+        }
+
+        /* CARTÃO DA SENHA */
+        #cartao-login {
+            background-color: var(--rosa-cartao);
+            width: 100%;
+            max-width: 480px;
+            padding: 28px 22px;
+            box-sizing: border-box;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(var(--vinho-rgb), 0.12);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #titulo-login {
+            font-family: "Playfair Display", serif;
+            font-size: 25px;
+            line-height: 1.3;
+            color: var(--vinho);
+            margin: 0 0 22px;
+            text-align: center;
+        }
+
+        /* CAMPO DE SENHA */
+        #senha {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px;
+            border: 1px solid var(--rosa-borda);
+            border-radius: 10px;
+            background-color: #ffffff;
+            color: var(--vinho);
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        #senha:focus {
+            border-color:var(--vinho-botao) ;
+            box-shadow: 0 0 0 3px rgba(var(--vinho-botao-rgb), 0.12);
+        }
+
+        /* BOTÃO ACESSAR */
+        #btn-acessar {
+            width: 100%;
+            margin-top: 18px;
+            padding: 13px;
+            box-sizing: border-box;
+            border: none;
+            border-radius: 10px;
+            background-color: var(--vinho-medio);
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+
+        #btn-acessar:hover {
+            background-color: var(--vinho);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(var(--vinho-rgb), 0.2);
+        }
+
+        #btn-acessar:active {
+            transform: translateY(0);
+        }
+
+        /* DICA */
+        #frase-login {
+            margin: 18px 0 0;
+            color: var(--vinho-medio);
+            font-size: 13px;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        /* MENSAGEM DE ERRO */
+        #mensagem-senha {
+            margin: 12px 0 0;
+            color: var(--vinho-botao);
+            font-size: 13px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        /* ================= PERGUNTA ================= */
+        #titulo-pergunta {
+            display: none;
+            font-family: sans-serif;
+        }
+
+        #botoes-pergunta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        #btn-sim {
+            background-color: var(--vinho);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-right: 20px;
+            display: none; /* ESCONDE ATÉ A SENHA SER CORRETA */
+            font-family: sans-serif;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 10px rgba(var(--vinho-rgb), 0.25);
+        }
+
+            @media (hover: hover) {
+        #btn-sim:hover {
+            transform: scale(1.08);
+            box-shadow: 0 8px 18px rgba(var(--vinho-rgb), 0.35);
+        }
+    }
+
+    #btn-sim:active {
+        transform: scale(0.98);
+    }
+
+        #btn-nao {
+            background-color: var(--vinho-botao);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative; /* PERMITE MOVER O BOTÃO */
+            display: none;
+            font-family: sans-serif;
+            box-shadow: 0 4px 10px rgba(var(--vinho-rgb), 0.25);
+        }
+
+        /* ================= TELA SURPRESA ================= */
+        #tela-surpresa {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 1; /* COLOCA A TELA ACIMA DOS CORAÇÕES */
+            animation: surgir 1s ease-out; 
+        }
+
+        #titulo-surpresa {
+            font-size: clamp(28px, 3vw, 42px);
+            color: var(--vinho);
+            font-family: "Playfair Display", serif;
+            text-align: center;
+            margin-bottom: 18px;
+            text-shadow: 0 2px 12px rgba(114, 5, 25, 0.12);
+        }
+
+        .area-musica {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .carrossel {
+            width: 550px;
+            height: 650px;
+            overflow: hidden; /* ESCONDE O QUE PASSAR DA ÁREA */
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(114, 5, 25, 0.18);
+        }
+
+        .carrossel img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.6s ease-in-out;   
+            }
+
+        #letra-esquerda,
+        #letra-direita {
+            width: 650px;
+            height: 650px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--vinho-medio);
+            font-family: "Playfair Display", serif;
+            font-size: 18px;
+            line-height: 1.8;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        #texto-esquerda,
+        #texto-direita {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            text-shadow: 0 1px 2px rgba(114, 5, 25, 0.12);
+            white-space: pre-line;
+            /* opacity: 0 → começa invisível.
+               transition → faz a mudança de visibilidade ser suave.
+               1s → a transição dura 1 segundo.
+               ease-in-out → começo e fim mais suaves. */
+        }
+
+        #legenda-foto {
+            font-size: 21px;
+            color: var(--vinho-medio);
+            font-family: "Caveat", cursive;
+            font-style: italic;
+            margin-top: 12px;
+            max-width: 550px;
+            text-align: center;
+            transition: opacity 0.6s ease-in-out;   
+        }
+
+        #mensagem-amor {
+            font-size: 22px;
+            color: var(--vinho);
+            font-family: "Playfair Display", serif;
+            font-style: italic;
+            font-weight: 600;
+            margin-top: 25px;
+        }
+
+        #tempo-namoro {
+            font-size: 20px;
+            color: var(--vinho-medio);  
+            font-weight: 600;
+            font-family: "Playfair Display", serif;
+            font-style: italic;
+            line-height: 1.5;
+            text-align: center;
+            margin-top: 10px;
+            /* text-shadow removido */
+        }
+
+        /* ================= CONTADOR ================= */
+        #contador {
+            display: flex;
+            flex-wrap: wrap;           /* SE NÃO COUBER, QUEBRA PARA A LINHA DE BAIXO */
+            justify-content: center;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .unidade {
+            display: flex;
+            flex-direction: column;    /* NÚMERO EM CIMA, NOME EMBAIXO */
+            align-items: center;
+            min-width: 78px;           /* LARGURA MÍNIMA: O CARTÃO NÃO "DANÇA" */
+            padding: 10px 8px;
+            background-color: rgba(255, 255, 255, 0.55);   /* BRANCO MEIO TRANSPARENTE */
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(var(--vinho-rgb), 0.12);
+        }
+
+        .numero {
+            font-family: "Playfair Display", serif;
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1;
+            color: var(--vinho);
+            font-variant-numeric: tabular-nums;   /* TODOS OS DÍGITOS TÊM A MESMA LARGURA */
+        }
+
+        .rotulo {
+            margin-top: 6px;
+            font-size: 13px;
+            color: var(--vinho-medio);
+        }
+        #texto-declaracao {
+            color: var(--vinho-medio);
+            white-space: pre-line;
+            text-align: center;
+            max-width: 1500px;
+            line-height: 1.8;
+            font-size: 24px;
+            font-family: "Caveat", cursive;
+            margin-top: 35px;
+        }
+
+        /* ================= BOTÃO DE MÚSICA ================= */
+        #btn-musica {
+            position: fixed; /* PRENDE O BOTÃO NA TELA */
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%); /* CENTRALIZA NA VERTICAL */
+            width: 45px;
+            height: 60px;
+            border: none;
+            border-radius: 10px;
+            background-color: var(--vinho-musica);
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 10; /* FICA POR CIMA DOS OUTROS ELEMENTOS */
+        }
+
+        /* ================= CORAÇÕES ================= */
+        #coracoes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* PERMITE CLICAR NOS ELEMENTOS ATRÁS */
+            z-index: 0;
+        }
+
+        #coracoes span {
+            animation: subir 3s linear;
+            position: absolute;
+            bottom: -50px;
+            opacity: 0.5;
+        }
+
+        /* ================= ANIMAÇÕES ================= */
+        @keyframes subir {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh);
+            }
+
+            25% {
+                opacity: 0.8;
+                transform: translate(30px, 50vh);
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: translate(-30px, 0);
+            }
+
+            75% {
+                opacity: 0.5;
+                transform: translate(30px, -50vh);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh);
+            }
+        }
+
+            @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes surgir {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        /* ENTRADA DA TELA DA PERGUNTA */
+        #titulo-pergunta {
+            animation: aparecer 0.8s ease-out;
+        }
+
+        #btn-sim {
+            animation: aparecer 0.8s ease-out 0.2s backwards;
+        }
+
+        #btn-nao {
+            animation: aparecer 0.8s ease-out 0.4s backwards;
+        }
+
+        /* ================= CELULAR =================
+           O @media fica por ÚLTIMO de propósito: assim as regras
+           de celular vencem as regras normais acima. */
+
+            @media (max-width: 600px) {
+
+            #titulo-surpresa {
+                font-size: 7vw;
+                margin-top: 10px;
+            }
+
+            /* FAZ O .area-musica "SUMIR" COMO CAIXA */
+            .area-musica {
+                display: contents;
+            }
+
+            /* ORDEM DE CIMA PARA BAIXO */
+            #titulo-surpresa  { order: 0; }
+            .carrossel        { order: 1; }
+            #legenda-foto     { order: 2; }
+            #letra-esquerda   { order: 3; margin-top: 10px; align-items: flex-end; }
+            #letra-direita    { order: 4; margin-top: 0; align-items: flex-start; }
+            #mensagem-amor    { order: 8; }
+            #tempo-namoro     { order: 6; }
+            #contador         { order: 6; }
+            #texto-declaracao { order: 7; }
+
+            .carrossel {
+                width: 90%;
+                height: 450px;
+            }
+
+            .carrossel img {
+                object-fit: contain;
+            }
+
+            /* CAIXAS DE LETRA */
+            #letra-esquerda,
+            #letra-direita {
+                width: 90%;
+                height: auto;
+                min-height: 150px;
+                padding: 8px 12px;
+                font-size: 15px;
+                line-height: 1.5;
+            }
+
+            /* ANTES DA PRIMEIRA LETRA: AS CAIXAS NEM OCUPAM ESPAÇO */
+            .area-musica:not(.letra-iniciada) #letra-esquerda,
+            .area-musica:not(.letra-iniciada) #letra-direita {
+                display: none;
+            }
+
+            #mensagem-amor {
+                font-size: 6vw;
+                margin-top: 10px;
+            }
+
+            #tempo-namoro {
+                font-size: 4.2vw;
+                max-width: 90%;
+                text-align: center;
+            }
+
+            #btn-sim,
+            #btn-nao {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+
+            #titulo-login {
+                font-size: 6vw;
+            }
+
+            #texto-declaracao {
+                width: 90%;
+                font-size: 21px;
+                line-height: 1.7;
+            }
+
+            #titulo-pergunta {
+                font-size: 6vw;
+                text-align: center;
+                width: 90%;
+                box-sizing: border-box;
+            }
+
+            #legenda-foto {
+                width: 90%;
+                font-size: 19px;
+            }
+
+            /* BOTÃO DE MÚSICA REDONDO NO CANTO INFERIOR DIREITO */
+            #btn-musica {
+                width: 44px;
+                height: 44px;
+                border-radius: 50%;
+                font-size: 16px;
+                left: auto;
+                top: auto;
+                right: 15px;
+                bottom: 15px;
+                transform: none;
+                opacity: 0.9;
+            }
+
+            /* ESPAÇO NO FIM DA PÁGINA PRA O BOTÃO NÃO COBRIR O ÚLTIMO TEXTO */
+            #tela-surpresa {
+                    width: 100%;
+                    box-sizing: border-box;
+                    padding-bottom: 70px;
+                            }
+
+            /* CONTADOR: 3 CARTÕES POR LINHA */
+            #contador {
+                width: 90%;
+                gap: 8px;
+            }
+
+            .unidade {
+                flex: 0 0 calc(33.333% - 6px);   /* CADA CARTÃO OCUPA UM TERÇO DA LARGURA */
+                min-width: 0;
+                box-sizing: border-box;
+                padding: 8px 4px;
+            }
+
+            .numero {
+                font-size: 26px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div id="tela-login">
+        <div id="cartao-login">
+
+            <h1 id="titulo-login">Para acessar a página, digite a senha</h1>
+
+            <input type="password" id="senha" inputmode="numeric" autocomplete="off">
+
+            <button id="btn-acessar">Acessar</button>
+
+            <p id="frase-login">Dica: a senha é uma data</p>
+
+            <!-- Mensagem que aparece quando a senha estiver errada -->
+            <p id="mensagem-senha"></p>
+
+        </div>
+    </div>
+
+    <div id="coracoes"></div>
+
+    <h1 id="titulo-pergunta">Você me ama muitoooo né?</h1>
+
+    <div id="botoes-pergunta">
+
+        <button id="btn-sim">
+            Com toda certeza minha gatinha!
+        </button>
+
+        <button id="btn-nao">
+            Não
+        </button>
+
+    </div>
+
+    <!-- NOVA TELA -->
+    <div id="tela-surpresa">
+
+        <button id="btn-musica">▶</button>
+
+        <!-- ELEMENTO RESPONSÁVEL POR REPRODUZIR A MÚSICA -->
+        <audio id="musica" src="musica/musica.mpeg"></audio>
+
+        <h1 id="titulo-surpresa">
+            Boa escolha gatinho ❤️
+        </h1>
+
+        <!-- Área que organiza a letra, a foto e a letra -->
+        <div class="area-musica">
+
+            <!-- Letra do lado esquerdo -->
+            <div id="letra-esquerda">
+                <span id="texto-esquerda"></span>
+            </div>
+
+            <!-- Fotos no centro -->
+            <div class="carrossel">
+                <img id="foto-carrossel" src="fotos/foto1.jpeg">
+            </div>
+
+            <!-- Letra do lado direito -->
+            <div id="letra-direita">
+                <span id="texto-direita"></span>
+            </div>
+
+        </div>
+        <p id="legenda-foto"></p>
+
+        <p id="tempo-namoro">Contando cada segundo da nossa história</p>
+
+        <div id="contador">
+            <div class="unidade" id="unid-anos">
+                <span class="numero" id="num-anos">0</span>
+                <span class="rotulo" id="rot-anos">anos</span>
+            </div>
+            <div class="unidade">
+                <span class="numero" id="num-meses">0</span>
+                <span class="rotulo" id="rot-meses">meses</span>
+            </div>
+            <div class="unidade">
+                <span class="numero" id="num-dias">0</span>
+                <span class="rotulo" id="rot-dias">dias</span>
+            </div>
+            <div class="unidade">
+                <span class="numero" id="num-horas">0</span>
+                <span class="rotulo" id="rot-horas">horas</span>
+            </div>
+            <div class="unidade">
+                <span class="numero" id="num-minutos">0</span>
+                <span class="rotulo" id="rot-minutos">minutos</span>
+            </div>
+            <div class="unidade">
+                <span class="numero" id="num-segundos">0</span>
+                <span class="rotulo" id="rot-segundos">segundos</span>
+            </div>
+        </div>
+
+        <p id="texto-declaracao"></p>
+
+
+        <p id="mensagem-amor">
+
+        </p>
+
+    </div>
+
+    <script>
+
+        /* GUARDA A DATA EM QUE COMEÇAMOS A NAMORAR */
+        const dataInicio = new Date('2026-05-02T00:00:00');
+
+        /* ATUALIZA UM CARTÃO: COLOCA O NÚMERO E ESCOLHE SINGULAR OU PLURAL */
+        function mostrarUnidade(nome, valor, singular, plural) {
+            document.getElementById('num-' + nome).textContent = valor;
+            document.getElementById('rot-' + nome).textContent =
+                valor === 1 ? singular : plural;
+}
+
+        function atualizarContador() {
+
+            // PEGA A DATA E HORA ATUAIS
+            const hoje = new Date();
+
+            let anos = hoje.getFullYear() - dataInicio.getFullYear();
+
+            const diaInicio = dataInicio.getDate();
+
+            /* DIMINUI 1 ANO SE O ANIVERSÁRIO AINDA NÃO ACONTECEU */
+            if (
+                hoje.getMonth() < dataInicio.getMonth() ||
+                (
+                    hoje.getMonth() === dataInicio.getMonth() &&
+                    hoje.getDate() < diaInicio
+                )
+            ) {
+                anos--;
+            }
+
+            /* CALCULA QUANTOS MESES SE PASSARAM */
+            let meses = hoje.getMonth() - dataInicio.getMonth();
+
+            /* CALCULA QUANTOS DIAS SE PASSARAM */
+            let dias = hoje.getDate() - dataInicio.getDate();
+
+            // PEGA O ÚLTIMO DIA DO MÊS ANTERIOR
+            const ultimoDiaMesAnterior = new Date(
+                hoje.getFullYear(),
+                hoje.getMonth(),
+                0
+            );
+
+            // CORRIGE MESES E DIAS
+            if (hoje.getDate() < dataInicio.getDate()) {
+
+                meses--;
+
+                dias =
+                    ultimoDiaMesAnterior.getDate() +
+                    hoje.getDate() -
+                    dataInicio.getDate();
+            }
+
+            /* CRIA UMA CÓPIA DA DATA DE INÍCIO */
+            const dataContada = new Date(dataInicio);
+
+            // ADICIONA OS ANOS COMPLETOS
+            dataContada.setFullYear(
+                dataContada.getFullYear() + anos
+            );
+
+            // ADICIONA OS MESES COMPLETOS
+            dataContada.setMonth(
+                dataContada.getMonth() + meses
+            );
+
+            // ADICIONA OS DIAS COMPLETOS
+            dataContada.setDate(
+                dataContada.getDate() + dias
+            );
+
+            // CALCULA O TEMPO RESTANTE
+            const diferencaRestante = hoje - dataContada;
+
+            // CALCULA AS HORAS
+            const horas =
+                Math.floor(diferencaRestante / 3600000);
+
+            // CALCULA OS MINUTOS
+            const minutos =
+                Math.floor(
+                    (diferencaRestante % 3600000) / 60000
+                );
+
+            // CALCULA OS SEGUNDOS
+            const segundos =
+                Math.floor(
+                    (diferencaRestante % 60000) / 1000
+                );
+                
+            // MOSTRA O CARTÃO DE ANOS SÓ DEPOIS DO PRIMEIRO ANO
+            document.getElementById('unid-anos').style.display =
+                anos > 0 ? '' : 'none';
+
+            mostrarUnidade('anos', anos, 'ano', 'anos');
+            mostrarUnidade('meses', meses, 'mês', 'meses');
+            mostrarUnidade('dias', dias, 'dia', 'dias');
+            mostrarUnidade('horas', horas, 'hora', 'horas');
+            mostrarUnidade('minutos', minutos, 'minuto', 'minutos');
+            mostrarUnidade('segundos', segundos, 'segundo', 'segundos');
+        }
+
+
+        // ATUALIZA O CONTADOR ASSIM QUE A PÁGINA CARREGA
+        atualizarContador();
+
+        // ATUALIZA O CONTADOR A CADA 1 SEGUNDO
+        setInterval(atualizarContador, 1000);
+
+
+        /* ENCONTRA O CAMPO DA SENHA */
+        const campoSenha =
+            document.getElementById('senha');
+
+        /* ENCONTRA O BOTÃO DE ACESSAR */
+        const botaoAcessar =
+            document.getElementById('btn-acessar');
+
+
+
+        /* FUNÇÃO QUE VERIFICA A SENHA */
+        function verificarSenha() {
+
+            /* VERIFICA SE A SENHA ESTÁ CORRETA */
+            if (campoSenha.value === '02052026') {
+
+                /* ESCONDE A TELA DE LOGIN */
+                document.getElementById('tela-login').style.display = 'none';
+
+                // LIMPA A MENSAGEM DE ERRO
+                document.getElementById('mensagem-senha').innerHTML = '';
+
+                /* MOSTRA A PERGUNTA */
+                document.getElementById('titulo-pergunta').style.display = 'block';
+
+                document.getElementById('btn-sim').style.display = 'block';
+
+                document.getElementById('btn-nao').style.display = 'block';
+
+            } else {
+
+                /* MOSTRA A MENSAGEM DE ERRO */
+                document.getElementById('mensagem-senha').innerHTML =
+                    'Senha incorreta amor, tenta de novo!';
+            }
+        }
+
+
+        /* EXECUTA A FUNÇÃO QUANDO CLICAR EM ACESSAR */
+        botaoAcessar.addEventListener(
+            'click',
+            verificarSenha
+        );
+        /* APERTAR ENTER NO CAMPO DA SENHA TAMBÉM ACESSA */
+        campoSenha.addEventListener('keydown', function (evento) {
+            if (evento.key === 'Enter') {
+                verificarSenha();
+            }
+        });
+
+
+        /* PEGA O CONTAINER DOS CORAÇÕES */
+        const containerCoracoes =
+            document.getElementById('coracoes');
+
+
+        /* GUARDA O BOTÃO "NÃO" */
+        const botaoNao =
+            document.getElementById('btn-nao');
+
+
+        /* FUNÇÃO QUE MOVE O BOTÃO "NÃO" */
+        function moverBotao() {
+
+            /* O BOTÃO PASSA A SER POSICIONADO EM RELAÇÃO À TELA */
+            botaoNao.style.position = 'fixed';
+
+            /* DESCOBRE O ESPAÇO DISPONÍVEL */
+            const larguraTela =
+                window.innerWidth - botaoNao.offsetWidth;
+
+            const alturaTela =
+                window.innerHeight - botaoNao.offsetHeight;
+
+            /* SORTEIA UMA POSIÇÃO HORIZONTAL */
+            const novaPosicaoX =
+                Math.random() * larguraTela;
+
+            /* SORTEIA UMA POSIÇÃO VERTICAL */
+            const novaPosicaoY =
+                Math.random() * alturaTela;
+
+            /* APLICA A NOVA POSIÇÃO */
+            botaoNao.style.left =
+                novaPosicaoX + 'px';
+
+            botaoNao.style.top =
+                novaPosicaoY + 'px';
+        }
+
+
+        /* FUNÇÃO QUE CRIA OS CORAÇÕES */
+        function criarCoracao() {
+
+            /* CRIA UM NOVO ELEMENTO HTML */
+            const novoCoracao =
+                document.createElement('span');
+
+            /* COLOCA O SÍMBOLO */
+            novoCoracao.innerHTML = '❤️';
+
+            /* SORTEIA A POSIÇÃO HORIZONTAL */
+            const posicaoX =
+                Math.random() * 80 + 10;
+
+            novoCoracao.style.left =
+                posicaoX + '%';
+
+            /* SORTEIA O TAMANHO */
+            const tamanho =
+                Math.random() * 30 + 15;
+
+            /* SORTEIA A DURAÇÃO */
+            const duracao =
+                Math.random() * 3 + 3;
+
+            /* DEFINE A DURAÇÃO */
+            novoCoracao.style.animationDuration =
+                duracao + 's';
+
+            /* DEFINE O TAMANHO */
+            novoCoracao.style.fontSize =
+                tamanho + 'px';
+
+            /* COLOCA O CORAÇÃO NO CONTAINER */
+            containerCoracoes.appendChild(novoCoracao);
+
+            /* REMOVE DEPOIS DA ANIMAÇÃO */
+            novoCoracao.addEventListener(
+                'animationend',
+                function () {
+                    novoCoracao.remove();
+                }
+            );
+        }
+
+
+        /* MOVE O BOTÃO QUANDO O MOUSE PASSAR POR CIMA */
+        botaoNao.addEventListener(
+            'mouseover',
+            moverBotao
+        );
+        botaoNao.addEventListener('touchstart', function (evento) {
+        evento.preventDefault(); // IMPEDE O "CLIQUE" QUE O NAVEGADOR GERA DEPOIS DO TOQUE
+        moverBotao();
+});
+
+
+        /* PEGA O BOTÃO SIM */
+        const botaoSim =
+            document.getElementById('btn-sim');
+
+
+        /* GUARDA O INTERVALO DOS CORAÇÕES (null = ainda não começou).
+           Serve para nunca criar dois intervalos ao mesmo tempo. */
+        let intervaloCoracoes = null;
+
+
+        /* FUNÇÃO EXECUTADA AO CLICAR EM SIM */
+        function aceitouOPedido() {
+
+            /* ESCONDE OS BOTÕES */
+            botaoNao.style.display = 'none';
+            botaoSim.style.display = 'none';
+
+            /* ESCONDE A PERGUNTA */
+            document.getElementById('titulo-pergunta').style.display = 'none';
+
+            /* MOSTRA A TELA SURPRESA */
+            document.getElementById('tela-surpresa').style.display = 'flex';
+
+            /* O TEXTO DA DECLARAÇÃO */
+            const textoDeclaracao =
+                'Como já dizia o astrônomo Carl Sagan:\n' +
+                '“The vastness of space and the immensity of time, it is my joy to share a planet and an epoch with you.”\n' +
+                'Acredito que essas belas palavras já falam muito por mim. Às vezes, os sentimentos podem ser complexos, intensos e vívidos como a cor do sangue que pulsa em nossas veias. ' +
+                'Mas quero lhe dizer que estou disposta a te mostrar o quão forte esse sentimento pode ser e, ao mesmo tempo, tão leve quanto uma nuvem em um dia ensolarado.';
+
+/* RESERVA O ESPAÇO DO "EU TE AMO" (INVISÍVEL), PARA O LAYOUT NÃO PULAR DEPOIS */
+const textoAmor = 'Eu te amo meu amor';
+const elementoAmor = document.getElementById('mensagem-amor');
+
+reservarTexto(textoAmor, elementoAmor);
+
+/* A DECLARAÇÃO COMEÇA QUANDO A PESSOA CHEGA NELA, E O "EU TE AMO" VEM DEPOIS */
+escreverQuandoVisivel(
+    textoDeclaracao,
+    document.getElementById('texto-declaracao'),
+    80,
+    function () {
+
+        /* PEQUENA PAUSA DE 1 SEGUNDO ANTES DE ESCREVER */
+        setTimeout(function () {
+            escreverTexto(textoAmor, elementoAmor, 120);
+        }, 1000);
+    }
+);
+
+            /* CRIA UM NOVO CORAÇÃO A CADA 200 MILISSEGUNDOS
+               (só se ainda não existir um intervalo rodando) */
+            if (intervaloCoracoes === null) {
+                intervaloCoracoes = setInterval(criarCoracao, 200);
+            }
+
+
+            /* INICIA O CARROSSEL */
+            iniciarCarrossel();
+        }
+
+
+       /* RESERVA O ESPAÇO DO TEXTO INTEIRO, MAS DEIXA INVISÍVEL */
+        function reservarTexto(texto, elemento) {
+
+            elemento.textContent = '';
+
+            const escrito = document.createElement('span');   // PARTE JÁ ESCRITA
+            const restante = document.createElement('span');  // PARTE QUE AINDA VAI APARECER
+
+            restante.style.visibility = 'hidden';  // INVISÍVEL, MAS OCUPANDO ESPAÇO
+            restante.textContent = texto;
+
+            elemento.append(escrito, restante);
+        }
+
+        /* VAI REVELANDO O TEXTO, LETRA POR LETRA */
+function escreverTexto(texto, elemento, velocidade, aoTerminar) {
+
+    const escrito = elemento.children[0];
+    const restante = elemento.children[1];
+
+    let indice = 0;
+
+    function escrever() {
+
+        if (indice < texto.length) {
+
+            indice++;
+
+            escrito.textContent = texto.slice(0, indice);
+            restante.textContent = texto.slice(indice);
+
+            setTimeout(escrever, velocidade);
+
+        } else if (aoTerminar) {
+
+            aoTerminar();   // AVISA QUE ACABOU
+        }
+    }
+
+    escrever();
+}
+
+ /* RESERVA O ESPAÇO E SÓ COMEÇA A ESCREVER QUANDO A PESSOA CHEGA NO TEXTO */
+function escreverQuandoVisivel(texto, elemento, velocidade, aoTerminar) {
+
+    reservarTexto(texto, elemento);
+
+    const observador = new IntersectionObserver(function (entradas) {
+
+        if (entradas[0].isIntersecting) {
+
+            observador.disconnect();   // SÓ DISPARA UMA VEZ
+
+            escreverTexto(texto, elemento, velocidade, aoTerminar);
+        }
+
+    }, { threshold: 0.2 });
+
+    observador.observe(elemento);
+}
+
+        let intervaloLetra;
+        let trocaLetra;
+        let letraPausada = false;
+
+        let indicePalavra = 0;
+        let frasesAtuais = [];
+        let indiceFrase = 0;
+        let palavrasDaFrase = [];
+        let atrasoPalavra = 400;
+
+    function mostrarTrechoLetra(trecho) {
+
+        document.querySelector('.area-musica').classList.add('letra-iniciada');
+
+        clearTimeout(intervaloLetra);
+        clearTimeout(trocaLetra);
+
+        const esquerda = document.getElementById('texto-esquerda');
+        const direita = document.getElementById('texto-direita');
+
+        esquerda.style.opacity = '0';
+        direita.style.opacity = '0';
+
+        trocaLetra = setTimeout(function () {
+            esquerda.textContent = '';
+            direita.textContent = '';
+
+            frasesAtuais = trecho.texto
+                .split('\n')
+                .filter(frase => frase.trim() !== '');
+
+            /* CALCULA A VELOCIDADE PARA O TRECHO CABER NA JANELA DELE */
+            const totalPalavras = frasesAtuais.join(' ').split(/\s+/).length;
+            const fimReal = Math.min(trecho.fim, 123);          // A MÚSICA PARA EM 123
+            const tempoDisponivel = (fimReal - trecho.inicio) - 2.5;   // DESCONTA O FADE E UMA FOLGA
+            atrasoPalavra = Math.min(400, Math.max(150, tempoDisponivel * 1000 / totalPalavras));
+
+            indiceFrase = 0;
+            indicePalavra = 0;
+            palavrasDaFrase = [];
+
+            if (!letraPausada) {
+                esquerda.style.opacity = '1';
+                direita.style.opacity = '1';
+                mostrarProximaPalavra();
+            }
+        }, 1000);
+    }
+
+        function mostrarProximaPalavra() {
+            if (letraPausada) {
+                return;
+            }
+
+            const esquerda = document.getElementById('texto-esquerda');
+            const direita = document.getElementById('texto-direita');
+
+            if (indiceFrase >= frasesAtuais.length) {
+                return;
+            }
+
+            if (indicePalavra === 0) {
+                palavrasDaFrase = frasesAtuais[indiceFrase]
+                    .trim()
+                    .split(/\s+/);
+            }
+
+            const metade = Math.ceil(frasesAtuais.length / 2);
+
+            const elemento = indiceFrase < metade
+                ? esquerda
+                : direita;
+
+            const palavra = palavrasDaFrase[indicePalavra];
+
+            if (indicePalavra === 0) {
+                elemento.textContent +=
+                    (elemento.textContent ? '\n' : '') + palavra;
+            } else {
+                elemento.textContent += ' ' + palavra;
+            }
+
+            indicePalavra++;
+
+            if (indicePalavra >= palavrasDaFrase.length) {
+                indiceFrase++;
+                indicePalavra = 0;
+            }
+
+            if (indiceFrase < frasesAtuais.length) {
+            intervaloLetra = setTimeout(
+                mostrarProximaPalavra,
+                atrasoPalavra    /* ERA 400 */
+            );
+}
+        }
+
+        const letras = [
+            {
+                inicio: 10,
+                fim: 34,
+                texto:
+
+                    "Aren't you somethin' to admire?\n" +
+                    "'Cause your shine is somethin' like a mirror\n" +
+                    "And I can't help but notice\n" +
+                    "You reflect in this heart of mine\n" +
+                    "If you ever feel alone and\n" +
+                    "The glare makes me hard to find\n" +
+                    "Just know that I'm always\n" +
+                    "Parallel on the other side"
+
+            },
+
+            {
+                inicio: 34,
+                fim: 46,
+                texto:
+                    "'Cause with your hand in my hand\n" +
+                    "And a pocket full of soul\n" +
+                    "I can tell you there's no place we couldn't go\n" +
+                    "Just put your hand on the glass\n" +
+                    "I'll be tryin' to pull you through\n" +
+                    "You just gotta be strong"
+            },
+
+            {
+                inicio: 46,
+                fim: 70,
+                texto:
+                    "'Cause I don't wanna lose you now\n" +
+                    "I'm lookin' right at the other half of me\n" +
+                    "The vacancy that sat in my heart\n" +
+                    "Is a space that now you hold\n" +
+                    "Show me how to fight for now\n" +
+                    "And I'll tell you, baby, it was easy\n" +
+                    "Comin' back into you once I figured it out\n" +
+                    "You were right here all along"
+            },
+
+            {
+                inicio: 73,
+                fim: 98,
+                texto:
+                    "It's like you're my mirror\n" +
+                    "My mirror staring back at me\n" +
+                    "I couldn't get any bigger\n" +
+                    "With anyone else beside me\n" +
+                    "And now it's clear as this promise\n" +
+                    "That we're making two reflections into one\n" +
+                    "'Cause it's like you're my mirror\n" +
+                    "My mirror staring back at me\n" +
+                    "Staring back at me"
+            },
+
+            {
+                inicio: 99,
+                fim: 130,
+                texto:
+                    "Aren't you somethin', an original?\n" +
+                    "'Cause it doesn't seem really as simple\n" +
+                    "And I can't help but stare, 'cause\n" +
+                    "I see truth somewhere in your eyes\n" +
+                    "Oh, I can't ever change without you\n" +
+                    "You reflect me, I love that about you\n" +
+                    "And if I could, I\n" +
+                    "Would look at us all the time"
+            }
+        ];
+
+        /* PEGA O ELEMENTO DA MÚSICA */
+        const musica = document.getElementById('musica');
+
+        const botaoMusica = document.getElementById('btn-musica');
+
+        const textoEsquerda = document.getElementById('texto-esquerda');
+        const textoDireita = document.getElementById('texto-direita');
+
+        let musicaTerminou = false;
+
+        let trechoAtual = -1;
+
+         botaoMusica.addEventListener('click', function () {
+
+            if (musica.paused) {
+
+                if (musicaTerminou) {
+
+                    musica.currentTime = 0;
+                    trechoAtual = -1;
+                    musicaTerminou = false;
+
+                    textoEsquerda.textContent = "";
+                    textoDireita.textContent = "";
+
+                    textoEsquerda.style.opacity = '0';
+                    textoDireita.style.opacity = '0';
+                }
+
+                /* SE ESTAVA PAUSADO NO MEIO DE UM TRECHO, DEVOLVE A VISIBILIDADE DA LETRA */
+                if (trechoAtual !== -1) {
+                    textoEsquerda.style.opacity = '1';
+                    textoDireita.style.opacity = '1';
+                }
+
+                musica.play();
+
+                letraPausada = false;
+
+                mostrarProximaPalavra();
+
+                botaoMusica.textContent = 'Ⅱ';
+
+            } else {
+
+                musica.pause();
+
+                letraPausada = true;
+
+                clearTimeout(intervaloLetra);
+
+                botaoMusica.textContent = '▶';
+            }
+
+        });
+
+        musica.addEventListener('timeupdate', function () {
+
+            const tempoAtual = musica.currentTime;
+
+            if (tempoAtual >= 123) {
+                musica.pause();
+                musica.currentTime = 122;
+
+                musicaTerminou = true;
+
+                 /* NOVO: TIRA A MARCA, E AS CAIXAS DE LETRA SOMEM */
+                document.querySelector('.area-musica').classList.remove('letra-iniciada');
+                clearTimeout(intervaloLetra); /* NOVO: PARA DE ESCREVER PALAVRAS NAS CAIXAS ESCONDIDAS */
+
+                textoEsquerda.style.opacity = '0';
+                textoDireita.style.opacity = '0';
+
+                botaoMusica.textContent = '▶';
+
+                return;
+            }
+
+            for (let i = 0; i < letras.length; i++) {
+
+                const trecho = letras[i];
+
+                if (
+                    tempoAtual >= trecho.inicio &&
+                    tempoAtual < trecho.fim
+                ) {
+
+                    if (trechoAtual !== i) {
+
+                        trechoAtual = i;
+
+                        mostrarTrechoLetra(trecho);
+                    }
+
+                    break;
+                }
+            }
+        });
+
+
+        /* FOTOS DO CARROSSEL */
+        const fotos = [
+            "fotos/foto1.jpeg",
+            "fotos/foto2.jpeg",
+            "fotos/foto3.jpeg"
+        ];
+
+        /* PRÉ-CARREGA AS FOTOS, PARA A TROCA NÃO PISCAR */
+        fotos.forEach(function (caminho) {
+            new Image().src = caminho;
+        });
+
+
+        /* LEGENDAS DE CADA FOTO */
+        const legendas = [
+            "Você é o compasso certo do meu coração❤️",
+            "Com você cada segundo vale a pena❤️",
+            "Você é o brigadeiro do meu beijinho❤️"
+        ];
+
+
+        let fotoAtual = 0;
+
+        /* GUARDA O INTERVALO DO CARROSSEL (evita criar dois) */
+        let intervaloCarrossel = null;
+
+
+        /* FUNÇÃO QUE INICIA O CARROSSEL */
+        function iniciarCarrossel() {
+
+            /* SE O CARROSSEL JÁ ESTÁ RODANDO, NÃO FAZ NADA */
+            if (intervaloCarrossel !== null) {
+                return;
+            }
+
+            const imagem =
+                document.getElementById('foto-carrossel');
+
+            const legenda =
+                document.getElementById('legenda-foto');
+
+            /* PEGA A LEGENDA DA FOTO ATUAL */
+            legenda.textContent =
+                legendas[fotoAtual];
+
+
+            /* TROCA A FOTO A CADA 4 SEGUNDOS, COM FADE */
+            intervaloCarrossel = setInterval(function () {
+
+                /* 1. A FOTO E A LEGENDA SOMEM */
+                imagem.style.opacity = '0';
+                legenda.style.opacity = '0';
+
+                /* 2. QUANDO TERMINAR DE SUMIR (0.6s), TROCA E REAPARECE */
+                setTimeout(function () {
+
+                    fotoAtual = (fotoAtual + 1) % fotos.length;
+
+                    imagem.src = fotos[fotoAtual];
+                    legenda.textContent = legendas[fotoAtual];
+
+                    imagem.style.opacity = '1';
+                    legenda.style.opacity = '1';
+
+                }, 600);
+
+            }, 4000);
+
+        }
+
+        /* EXECUTA A FUNÇÃO QUANDO CLICAR NO BOTÃO SIM */
+        botaoSim.addEventListener(
+            'click',
+            aceitouOPedido
+        );
+
+    </script>
+
+</body>
+
+</html>
