@@ -11,47 +11,82 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Caveat:wght@500;600&display=swap"
-    rel="stylesheet">
+        rel="stylesheet">
 
     <style>
 
-       :root {
-        --rosa-fundo: #f8dce8;
-        --rosa-cartao: #fff7fa;
-        --rosa-borda: #e7b8c7;
+        :root {
+            --rosa-fundo: #f8dce8;
+            --rosa-cartao: #fff7fa;
+            --rosa-borda: #e7b8c7;
 
-        --vinho: #720519;
-        --vinho-medio: #853348;
-        --vinho-botao: #a7283f;
-        --vinho-musica: #b97380;
+            --vinho: #720519;
+            --vinho-medio: #853348;
+            --vinho-botao: #a7283f;
+            --vinho-musica: #b97380;
 
-        --rosa-claro: #fff1f6;
-        --rosa-escuro: #e596b5;
+            --rosa-claro: #fff1f6;
+            --rosa-escuro: #e596b5;
 
-        --vinho-botao-rgb: 167, 40, 63;
+            --vinho-botao-rgb: 167, 40, 63;
+            --vinho-rgb: 114, 5, 25; /* MESMO VINHO, EM NÚMEROS */
+        }
 
-        --vinho-rgb: 114, 5, 25; /* MESMO VINHO, EM NÚMEROS (EXPLICO ABAIXO) */
-} 
         /* ================= GERAL ================= */
         body {
             background: linear-gradient(160deg, var(--rosa-claro) 0%, var(--rosa-fundo) 50%, var(--rosa-escuro) 100%);
             display: flex;
-            flex-direction: column; /* ALINHA OS ITENS EM COLUNA */
-            justify-content: center; /* CENTRALIZA NA VERTICAL */
-            align-items: center; /* CENTRALIZA NA HORIZONTAL */
-            min-height: 100vh; /* GARANTE PELO MENOS A ALTURA DA TELA */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
             margin: 0;
             position: relative;
             font-family: sans-serif;
         }
 
         h1 {
-            color: var(--vinho); /* COR DO TITULO */
+            color: var(--vinho);
+        }
+
+        /* ================= BRILHOS DE FUNDO ================= */
+        #brilhos {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        #brilhos span {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 70%);
+            animation: flutuar ease-in-out infinite;
+            will-change: transform, opacity;
+        }
+
+        #brilhos span.rosa {
+            background: radial-gradient(circle, rgba(255, 175, 205, 0.9) 0%, rgba(255, 175, 205, 0) 70%);
+        }
+
+        @keyframes flutuar {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.2;
+            }
+
+            50% {
+                transform: translate(30px, -60px) scale(1.15);
+                opacity: 0.6;
+            }
         }
 
         /* ================= TELA DE LOGIN ================= */
         #tela-login {
-
             display: flex;
             flex-direction: column;
             text-align: center;
@@ -63,7 +98,6 @@
             padding: 20px;
         }
 
-        /* CARTÃO DA SENHA */
         #cartao-login {
             background-color: var(--rosa-cartao);
             width: 100%;
@@ -86,7 +120,6 @@
             text-align: center;
         }
 
-        /* CAMPO DE SENHA */
         #senha {
             width: 100%;
             box-sizing: border-box;
@@ -102,11 +135,10 @@
         }
 
         #senha:focus {
-            border-color:var(--vinho-botao) ;
+            border-color: var(--vinho-botao);
             box-shadow: 0 0 0 3px rgba(var(--vinho-botao-rgb), 0.12);
         }
 
-        /* BOTÃO ACESSAR */
         #btn-acessar {
             width: 100%;
             margin-top: 18px;
@@ -132,7 +164,6 @@
             transform: translateY(0);
         }
 
-        /* DICA */
         #frase-login {
             margin: 18px 0 0;
             color: var(--vinho-medio);
@@ -141,7 +172,6 @@
             line-height: 1.5;
         }
 
-        /* MENSAGEM DE ERRO */
         #mensagem-senha {
             margin: 12px 0 0;
             color: var(--vinho-botao);
@@ -174,22 +204,22 @@
             font-weight: bold;
             cursor: pointer;
             margin-right: 20px;
-            display: none; /* ESCONDE ATÉ A SENHA SER CORRETA */
+            display: none;
             font-family: sans-serif;
             transition: transform 0.3s, box-shadow 0.3s;
             box-shadow: 0 4px 10px rgba(var(--vinho-rgb), 0.25);
         }
 
-            @media (hover: hover) {
-        #btn-sim:hover {
-            transform: scale(1.08);
-            box-shadow: 0 8px 18px rgba(var(--vinho-rgb), 0.35);
+        @media (hover: hover) {
+            #btn-sim:hover {
+                transform: scale(1.08);
+                box-shadow: 0 8px 18px rgba(var(--vinho-rgb), 0.35);
+            }
         }
-    }
 
-    #btn-sim:active {
-        transform: scale(0.98);
-    }
+        #btn-sim:active {
+            transform: scale(0.98);
+        }
 
         #btn-nao {
             background-color: var(--vinho-botao);
@@ -200,7 +230,7 @@
             font-size: 18px;
             font-weight: bold;
             cursor: pointer;
-            position: relative; /* PERMITE MOVER O BOTÃO */
+            position: relative;
             display: none;
             font-family: sans-serif;
             box-shadow: 0 4px 10px rgba(var(--vinho-rgb), 0.25);
@@ -213,8 +243,8 @@
             align-items: center;
             text-align: center;
             position: relative;
-            z-index: 1; /* COLOCA A TELA ACIMA DOS CORAÇÕES */
-            animation: surgir 1s ease-out; 
+            z-index: 1;
+            animation: surgir 1s ease-out;
         }
 
         #titulo-surpresa {
@@ -223,7 +253,7 @@
             font-family: "Playfair Display", serif;
             text-align: center;
             margin-bottom: 18px;
-            text-shadow: 0 2px 12px rgba(114, 5, 25, 0.12);
+            text-shadow: 0 2px 12px rgba(var(--vinho-rgb), 0.12);
         }
 
         .area-musica {
@@ -236,9 +266,9 @@
         .carrossel {
             width: 550px;
             height: 650px;
-            overflow: hidden; /* ESCONDE O QUE PASSAR DA ÁREA */
+            overflow: hidden;
             border-radius: 20px;
-            box-shadow: 0 8px 20px rgba(114, 5, 25, 0.18);
+            box-shadow: 0 8px 20px rgba(var(--vinho-rgb), 0.18);
         }
 
         .carrossel img {
@@ -246,8 +276,8 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            transition: opacity 0.6s ease-in-out;   
-            }
+            transition: opacity 0.6s ease-in-out;
+        }
 
         #letra-esquerda,
         #letra-direita {
@@ -269,12 +299,8 @@
         #texto-direita {
             opacity: 0;
             transition: opacity 1s ease-in-out;
-            text-shadow: 0 1px 2px rgba(114, 5, 25, 0.12);
+            text-shadow: 0 1px 2px rgba(var(--vinho-rgb), 0.12);
             white-space: pre-line;
-            /* opacity: 0 → começa invisível.
-               transition → faz a mudança de visibilidade ser suave.
-               1s → a transição dura 1 segundo.
-               ease-in-out → começo e fim mais suaves. */
         }
 
         #legenda-foto {
@@ -285,7 +311,7 @@
             margin-top: 12px;
             max-width: 550px;
             text-align: center;
-            transition: opacity 0.6s ease-in-out;   
+            transition: opacity 0.6s ease-in-out;
         }
 
         #mensagem-amor {
@@ -299,20 +325,19 @@
 
         #tempo-namoro {
             font-size: 20px;
-            color: var(--vinho-medio);  
+            color: var(--vinho-medio);
             font-weight: 600;
             font-family: "Playfair Display", serif;
             font-style: italic;
             line-height: 1.5;
             text-align: center;
             margin-top: 10px;
-            /* text-shadow removido */
         }
 
         /* ================= CONTADOR ================= */
         #contador {
             display: flex;
-            flex-wrap: wrap;           /* SE NÃO COUBER, QUEBRA PARA A LINHA DE BAIXO */
+            flex-wrap: wrap;
             justify-content: center;
             gap: 10px;
             margin-top: 12px;
@@ -320,11 +345,11 @@
 
         .unidade {
             display: flex;
-            flex-direction: column;    /* NÚMERO EM CIMA, NOME EMBAIXO */
+            flex-direction: column;
             align-items: center;
-            min-width: 78px;           /* LARGURA MÍNIMA: O CARTÃO NÃO "DANÇA" */
+            min-width: 78px;
             padding: 10px 8px;
-            background-color: rgba(255, 255, 255, 0.55);   /* BRANCO MEIO TRANSPARENTE */
+            background-color: rgba(255, 255, 255, 0.55);
             border-radius: 14px;
             box-shadow: 0 4px 12px rgba(var(--vinho-rgb), 0.12);
         }
@@ -335,7 +360,7 @@
             font-weight: 700;
             line-height: 1;
             color: var(--vinho);
-            font-variant-numeric: tabular-nums;   /* TODOS OS DÍGITOS TÊM A MESMA LARGURA */
+            font-variant-numeric: tabular-nums;
         }
 
         .rotulo {
@@ -343,6 +368,7 @@
             font-size: 13px;
             color: var(--vinho-medio);
         }
+
         #texto-declaracao {
             color: var(--vinho-medio);
             white-space: pre-line;
@@ -356,10 +382,10 @@
 
         /* ================= BOTÃO DE MÚSICA ================= */
         #btn-musica {
-            position: fixed; /* PRENDE O BOTÃO NA TELA */
+            position: fixed;
             left: 15px;
             top: 50%;
-            transform: translateY(-50%); /* CENTRALIZA NA VERTICAL */
+            transform: translateY(-50%);
             width: 45px;
             height: 60px;
             border: none;
@@ -368,7 +394,7 @@
             color: white;
             font-size: 20px;
             cursor: pointer;
-            z-index: 10; /* FICA POR CIMA DOS OUTROS ELEMENTOS */
+            z-index: 10;
         }
 
         /* ================= CORAÇÕES ================= */
@@ -378,7 +404,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none; /* PERMITE CLICAR NOS ELEMENTOS ATRÁS */
+            pointer-events: none;
             z-index: 0;
         }
 
@@ -417,7 +443,7 @@
             }
         }
 
-            @keyframes aparecer {
+        @keyframes aparecer {
             from {
                 opacity: 0;
                 transform: translateY(20px);
@@ -434,7 +460,6 @@
             to   { opacity: 1; }
         }
 
-        /* ENTRADA DA TELA DA PERGUNTA */
         #titulo-pergunta {
             animation: aparecer 0.8s ease-out;
         }
@@ -447,32 +472,52 @@
             animation: aparecer 0.8s ease-out 0.4s backwards;
         }
 
-        /* ================= CELULAR =================
-           O @media fica por ÚLTIMO de propósito: assim as regras
-           de celular vencem as regras normais acima. */
+        /* ================= BLOCOS QUE ENTRAM AO ROLAR ================= */
+        .revelar {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.9s ease, transform 0.9s ease;
+        }
 
-            @media (max-width: 600px) {
+        .revelar.revelado {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .revelar {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+
+            #brilhos span {
+                animation: none;
+                opacity: 0.3;
+            }
+        }
+
+        /* ================= CELULAR (SEMPRE POR ÚLTIMO) ================= */
+        @media (max-width: 600px) {
 
             #titulo-surpresa {
                 font-size: 7vw;
                 margin-top: 10px;
             }
 
-            /* FAZ O .area-musica "SUMIR" COMO CAIXA */
             .area-musica {
                 display: contents;
             }
 
-            /* ORDEM DE CIMA PARA BAIXO */
             #titulo-surpresa  { order: 0; }
             .carrossel        { order: 1; }
             #legenda-foto     { order: 2; }
             #letra-esquerda   { order: 3; margin-top: 10px; align-items: flex-end; }
             #letra-direita    { order: 4; margin-top: 0; align-items: flex-start; }
-            #mensagem-amor    { order: 8; }
             #tempo-namoro     { order: 6; }
             #contador         { order: 6; }
             #texto-declaracao { order: 7; }
+            #mensagem-amor    { order: 8; }
 
             .carrossel {
                 width: 90%;
@@ -483,7 +528,6 @@
                 object-fit: contain;
             }
 
-            /* CAIXAS DE LETRA */
             #letra-esquerda,
             #letra-direita {
                 width: 90%;
@@ -494,7 +538,6 @@
                 line-height: 1.5;
             }
 
-            /* ANTES DA PRIMEIRA LETRA: AS CAIXAS NEM OCUPAM ESPAÇO */
             .area-musica:not(.letra-iniciada) #letra-esquerda,
             .area-musica:not(.letra-iniciada) #letra-direita {
                 display: none;
@@ -539,7 +582,6 @@
                 font-size: 19px;
             }
 
-            /* BOTÃO DE MÚSICA REDONDO NO CANTO INFERIOR DIREITO */
             #btn-musica {
                 width: 44px;
                 height: 44px;
@@ -553,21 +595,19 @@
                 opacity: 0.9;
             }
 
-            /* ESPAÇO NO FIM DA PÁGINA PRA O BOTÃO NÃO COBRIR O ÚLTIMO TEXTO */
             #tela-surpresa {
-                    width: 100%;
-                    box-sizing: border-box;
-                    padding-bottom: 70px;
-                            }
+                width: 100%;
+                box-sizing: border-box;
+                padding-bottom: 70px;
+            }
 
-            /* CONTADOR: 3 CARTÕES POR LINHA */
             #contador {
                 width: 90%;
                 gap: 8px;
             }
 
             .unidade {
-                flex: 0 0 calc(33.333% - 6px);   /* CADA CARTÃO OCUPA UM TERÇO DA LARGURA */
+                flex: 0 0 calc(33.333% - 6px);
                 min-width: 0;
                 box-sizing: border-box;
                 padding: 8px 4px;
@@ -583,6 +623,8 @@
 
 <body>
 
+    <div id="brilhos"></div>
+
     <div id="tela-login">
         <div id="cartao-login">
 
@@ -594,7 +636,6 @@
 
             <p id="frase-login">Dica: a senha é uma data</p>
 
-            <!-- Mensagem que aparece quando a senha estiver errada -->
             <p id="mensagem-senha"></p>
 
         </div>
@@ -616,42 +657,37 @@
 
     </div>
 
-    <!-- NOVA TELA -->
     <div id="tela-surpresa">
 
         <button id="btn-musica">▶</button>
 
-        <!-- ELEMENTO RESPONSÁVEL POR REPRODUZIR A MÚSICA -->
         <audio id="musica" src="musica/musica.mpeg"></audio>
 
         <h1 id="titulo-surpresa">
             Boa escolha gatinho ❤️
         </h1>
 
-        <!-- Área que organiza a letra, a foto e a letra -->
         <div class="area-musica">
 
-            <!-- Letra do lado esquerdo -->
             <div id="letra-esquerda">
                 <span id="texto-esquerda"></span>
             </div>
 
-            <!-- Fotos no centro -->
             <div class="carrossel">
                 <img id="foto-carrossel" src="fotos/foto1.jpeg">
             </div>
 
-            <!-- Letra do lado direito -->
             <div id="letra-direita">
                 <span id="texto-direita"></span>
             </div>
 
         </div>
+
         <p id="legenda-foto"></p>
 
-        <p id="tempo-namoro">Contando cada segundo da nossa história</p>
+        <p id="tempo-namoro" class="revelar">Contando cada segundo da nossa história</p>
 
-        <div id="contador">
+        <div id="contador" class="revelar">
             <div class="unidade" id="unid-anos">
                 <span class="numero" id="num-anos">0</span>
                 <span class="rotulo" id="rot-anos">anos</span>
@@ -678,12 +714,9 @@
             </div>
         </div>
 
-        <p id="texto-declaracao"></p>
+        <p id="texto-declaracao" class="revelar"></p>
 
-
-        <p id="mensagem-amor">
-
-        </p>
+        <p id="mensagem-amor" class="revelar"></p>
 
     </div>
 
@@ -697,18 +730,16 @@
             document.getElementById('num-' + nome).textContent = valor;
             document.getElementById('rot-' + nome).textContent =
                 valor === 1 ? singular : plural;
-}
+        }
 
         function atualizarContador() {
 
-            // PEGA A DATA E HORA ATUAIS
             const hoje = new Date();
 
             let anos = hoje.getFullYear() - dataInicio.getFullYear();
 
             const diaInicio = dataInicio.getDate();
 
-            /* DIMINUI 1 ANO SE O ANIVERSÁRIO AINDA NÃO ACONTECEU */
             if (
                 hoje.getMonth() < dataInicio.getMonth() ||
                 (
@@ -719,20 +750,16 @@
                 anos--;
             }
 
-            /* CALCULA QUANTOS MESES SE PASSARAM */
             let meses = hoje.getMonth() - dataInicio.getMonth();
 
-            /* CALCULA QUANTOS DIAS SE PASSARAM */
             let dias = hoje.getDate() - dataInicio.getDate();
 
-            // PEGA O ÚLTIMO DIA DO MÊS ANTERIOR
             const ultimoDiaMesAnterior = new Date(
                 hoje.getFullYear(),
                 hoje.getMonth(),
                 0
             );
 
-            // CORRIGE MESES E DIAS
             if (hoje.getDate() < dataInicio.getDate()) {
 
                 meses--;
@@ -743,44 +770,36 @@
                     dataInicio.getDate();
             }
 
-            /* CRIA UMA CÓPIA DA DATA DE INÍCIO */
             const dataContada = new Date(dataInicio);
 
-            // ADICIONA OS ANOS COMPLETOS
             dataContada.setFullYear(
                 dataContada.getFullYear() + anos
             );
 
-            // ADICIONA OS MESES COMPLETOS
             dataContada.setMonth(
                 dataContada.getMonth() + meses
             );
 
-            // ADICIONA OS DIAS COMPLETOS
             dataContada.setDate(
                 dataContada.getDate() + dias
             );
 
-            // CALCULA O TEMPO RESTANTE
             const diferencaRestante = hoje - dataContada;
 
-            // CALCULA AS HORAS
             const horas =
                 Math.floor(diferencaRestante / 3600000);
 
-            // CALCULA OS MINUTOS
             const minutos =
                 Math.floor(
                     (diferencaRestante % 3600000) / 60000
                 );
 
-            // CALCULA OS SEGUNDOS
             const segundos =
                 Math.floor(
                     (diferencaRestante % 60000) / 1000
                 );
-                
-            // MOSTRA O CARTÃO DE ANOS SÓ DEPOIS DO PRIMEIRO ANO
+
+            /* MOSTRA O CARTÃO DE ANOS SÓ DEPOIS DO PRIMEIRO ANO */
             document.getElementById('unid-anos').style.display =
                 anos > 0 ? '' : 'none';
 
@@ -792,58 +811,35 @@
             mostrarUnidade('segundos', segundos, 'segundo', 'segundos');
         }
 
-
-        // ATUALIZA O CONTADOR ASSIM QUE A PÁGINA CARREGA
         atualizarContador();
-
-        // ATUALIZA O CONTADOR A CADA 1 SEGUNDO
         setInterval(atualizarContador, 1000);
 
 
-        /* ENCONTRA O CAMPO DA SENHA */
-        const campoSenha =
-            document.getElementById('senha');
+        /* ================= LOGIN ================= */
+        const campoSenha = document.getElementById('senha');
+        const botaoAcessar = document.getElementById('btn-acessar');
 
-        /* ENCONTRA O BOTÃO DE ACESSAR */
-        const botaoAcessar =
-            document.getElementById('btn-acessar');
-
-
-
-        /* FUNÇÃO QUE VERIFICA A SENHA */
         function verificarSenha() {
 
-            /* VERIFICA SE A SENHA ESTÁ CORRETA */
             if (campoSenha.value === '02052026') {
 
-                /* ESCONDE A TELA DE LOGIN */
                 document.getElementById('tela-login').style.display = 'none';
 
-                // LIMPA A MENSAGEM DE ERRO
                 document.getElementById('mensagem-senha').innerHTML = '';
 
-                /* MOSTRA A PERGUNTA */
                 document.getElementById('titulo-pergunta').style.display = 'block';
-
                 document.getElementById('btn-sim').style.display = 'block';
-
                 document.getElementById('btn-nao').style.display = 'block';
 
             } else {
 
-                /* MOSTRA A MENSAGEM DE ERRO */
                 document.getElementById('mensagem-senha').innerHTML =
                     'Senha incorreta amor, tenta de novo!';
             }
         }
 
+        botaoAcessar.addEventListener('click', verificarSenha);
 
-        /* EXECUTA A FUNÇÃO QUANDO CLICAR EM ACESSAR */
-        botaoAcessar.addEventListener(
-            'click',
-            verificarSenha
-        );
-        /* APERTAR ENTER NO CAMPO DA SENHA TAMBÉM ACESSA */
         campoSenha.addEventListener('keydown', function (evento) {
             if (evento.key === 'Enter') {
                 verificarSenha();
@@ -851,226 +847,152 @@
         });
 
 
-        /* PEGA O CONTAINER DOS CORAÇÕES */
-        const containerCoracoes =
-            document.getElementById('coracoes');
+        /* ================= BOTÃO "NÃO" E CORAÇÕES ================= */
+        const containerCoracoes = document.getElementById('coracoes');
+        const botaoNao = document.getElementById('btn-nao');
 
-
-        /* GUARDA O BOTÃO "NÃO" */
-        const botaoNao =
-            document.getElementById('btn-nao');
-
-
-        /* FUNÇÃO QUE MOVE O BOTÃO "NÃO" */
         function moverBotao() {
 
-            /* O BOTÃO PASSA A SER POSICIONADO EM RELAÇÃO À TELA */
             botaoNao.style.position = 'fixed';
 
-            /* DESCOBRE O ESPAÇO DISPONÍVEL */
-            const larguraTela =
-                window.innerWidth - botaoNao.offsetWidth;
+            const larguraTela = window.innerWidth - botaoNao.offsetWidth;
+            const alturaTela = window.innerHeight - botaoNao.offsetHeight;
 
-            const alturaTela =
-                window.innerHeight - botaoNao.offsetHeight;
-
-            /* SORTEIA UMA POSIÇÃO HORIZONTAL */
-            const novaPosicaoX =
-                Math.random() * larguraTela;
-
-            /* SORTEIA UMA POSIÇÃO VERTICAL */
-            const novaPosicaoY =
-                Math.random() * alturaTela;
-
-            /* APLICA A NOVA POSIÇÃO */
-            botaoNao.style.left =
-                novaPosicaoX + 'px';
-
-            botaoNao.style.top =
-                novaPosicaoY + 'px';
+            botaoNao.style.left = Math.random() * larguraTela + 'px';
+            botaoNao.style.top = Math.random() * alturaTela + 'px';
         }
 
-
-        /* FUNÇÃO QUE CRIA OS CORAÇÕES */
         function criarCoracao() {
 
-            /* CRIA UM NOVO ELEMENTO HTML */
-            const novoCoracao =
-                document.createElement('span');
+            const novoCoracao = document.createElement('span');
 
-            /* COLOCA O SÍMBOLO */
             novoCoracao.innerHTML = '❤️';
 
-            /* SORTEIA A POSIÇÃO HORIZONTAL */
-            const posicaoX =
-                Math.random() * 80 + 10;
+            novoCoracao.style.left = (Math.random() * 80 + 10) + '%';
+            novoCoracao.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            novoCoracao.style.fontSize = (Math.random() * 30 + 15) + 'px';
 
-            novoCoracao.style.left =
-                posicaoX + '%';
-
-            /* SORTEIA O TAMANHO */
-            const tamanho =
-                Math.random() * 30 + 15;
-
-            /* SORTEIA A DURAÇÃO */
-            const duracao =
-                Math.random() * 3 + 3;
-
-            /* DEFINE A DURAÇÃO */
-            novoCoracao.style.animationDuration =
-                duracao + 's';
-
-            /* DEFINE O TAMANHO */
-            novoCoracao.style.fontSize =
-                tamanho + 'px';
-
-            /* COLOCA O CORAÇÃO NO CONTAINER */
             containerCoracoes.appendChild(novoCoracao);
 
-            /* REMOVE DEPOIS DA ANIMAÇÃO */
-            novoCoracao.addEventListener(
-                'animationend',
-                function () {
-                    novoCoracao.remove();
-                }
-            );
+            novoCoracao.addEventListener('animationend', function () {
+                novoCoracao.remove();
+            });
         }
 
+        botaoNao.addEventListener('mouseover', moverBotao);
 
-        /* MOVE O BOTÃO QUANDO O MOUSE PASSAR POR CIMA */
-        botaoNao.addEventListener(
-            'mouseover',
-            moverBotao
-        );
         botaoNao.addEventListener('touchstart', function (evento) {
-        evento.preventDefault(); // IMPEDE O "CLIQUE" QUE O NAVEGADOR GERA DEPOIS DO TOQUE
-        moverBotao();
-});
+            evento.preventDefault();
+            moverBotao();
+        });
 
+        const botaoSim = document.getElementById('btn-sim');
 
-        /* PEGA O BOTÃO SIM */
-        const botaoSim =
-            document.getElementById('btn-sim');
-
-
-        /* GUARDA O INTERVALO DOS CORAÇÕES (null = ainda não começou).
-           Serve para nunca criar dois intervalos ao mesmo tempo. */
         let intervaloCoracoes = null;
 
 
-        /* FUNÇÃO EXECUTADA AO CLICAR EM SIM */
+        /* ================= AO CLICAR EM "SIM" ================= */
         function aceitouOPedido() {
 
-            /* ESCONDE OS BOTÕES */
             botaoNao.style.display = 'none';
             botaoSim.style.display = 'none';
 
-            /* ESCONDE A PERGUNTA */
             document.getElementById('titulo-pergunta').style.display = 'none';
 
-            /* MOSTRA A TELA SURPRESA */
             document.getElementById('tela-surpresa').style.display = 'flex';
 
-            /* O TEXTO DA DECLARAÇÃO */
             const textoDeclaracao =
                 'Como já dizia o astrônomo Carl Sagan:\n' +
                 '“The vastness of space and the immensity of time, it is my joy to share a planet and an epoch with you.”\n' +
                 'Acredito que essas belas palavras já falam muito por mim. Às vezes, os sentimentos podem ser complexos, intensos e vívidos como a cor do sangue que pulsa em nossas veias. ' +
                 'Mas quero lhe dizer que estou disposta a te mostrar o quão forte esse sentimento pode ser e, ao mesmo tempo, tão leve quanto uma nuvem em um dia ensolarado.';
 
-/* RESERVA O ESPAÇO DO "EU TE AMO" (INVISÍVEL), PARA O LAYOUT NÃO PULAR DEPOIS */
-const textoAmor = 'Eu te amo meu amor';
-const elementoAmor = document.getElementById('mensagem-amor');
+            const textoAmor = 'Eu te amo meu amor';
+            const elementoAmor = document.getElementById('mensagem-amor');
 
-reservarTexto(textoAmor, elementoAmor);
+            reservarTexto(textoAmor, elementoAmor);
 
-/* A DECLARAÇÃO COMEÇA QUANDO A PESSOA CHEGA NELA, E O "EU TE AMO" VEM DEPOIS */
-escreverQuandoVisivel(
-    textoDeclaracao,
-    document.getElementById('texto-declaracao'),
-    80,
-    function () {
+            /* A DECLARAÇÃO COMEÇA QUANDO A PESSOA CHEGA NELA, E O "EU TE AMO" VEM DEPOIS */
+            escreverQuandoVisivel(
+                textoDeclaracao,
+                document.getElementById('texto-declaracao'),
+                80,
+                function () {
+                    setTimeout(function () {
+                        escreverTexto(textoAmor, elementoAmor, 120);
+                    }, 1000);
+                }
+            );
 
-        /* PEQUENA PAUSA DE 1 SEGUNDO ANTES DE ESCREVER */
-        setTimeout(function () {
-            escreverTexto(textoAmor, elementoAmor, 120);
-        }, 1000);
-    }
-);
-
-            /* CRIA UM NOVO CORAÇÃO A CADA 200 MILISSEGUNDOS
-               (só se ainda não existir um intervalo rodando) */
             if (intervaloCoracoes === null) {
                 intervaloCoracoes = setInterval(criarCoracao, 200);
             }
 
-
-            /* INICIA O CARROSSEL */
             iniciarCarrossel();
         }
 
 
-       /* RESERVA O ESPAÇO DO TEXTO INTEIRO, MAS DEIXA INVISÍVEL */
+        /* ================= TEXTO ESCRITO LETRA POR LETRA ================= */
         function reservarTexto(texto, elemento) {
 
             elemento.textContent = '';
 
-            const escrito = document.createElement('span');   // PARTE JÁ ESCRITA
-            const restante = document.createElement('span');  // PARTE QUE AINDA VAI APARECER
+            const escrito = document.createElement('span');
+            const restante = document.createElement('span');
 
-            restante.style.visibility = 'hidden';  // INVISÍVEL, MAS OCUPANDO ESPAÇO
+            restante.style.visibility = 'hidden';
             restante.textContent = texto;
 
             elemento.append(escrito, restante);
         }
 
-        /* VAI REVELANDO O TEXTO, LETRA POR LETRA */
-function escreverTexto(texto, elemento, velocidade, aoTerminar) {
+        function escreverTexto(texto, elemento, velocidade, aoTerminar) {
 
-    const escrito = elemento.children[0];
-    const restante = elemento.children[1];
+            const escrito = elemento.children[0];
+            const restante = elemento.children[1];
 
-    let indice = 0;
+            let indice = 0;
 
-    function escrever() {
+            function escrever() {
 
-        if (indice < texto.length) {
+                if (indice < texto.length) {
 
-            indice++;
+                    indice++;
 
-            escrito.textContent = texto.slice(0, indice);
-            restante.textContent = texto.slice(indice);
+                    escrito.textContent = texto.slice(0, indice);
+                    restante.textContent = texto.slice(indice);
 
-            setTimeout(escrever, velocidade);
+                    setTimeout(escrever, velocidade);
 
-        } else if (aoTerminar) {
+                } else if (aoTerminar) {
 
-            aoTerminar();   // AVISA QUE ACABOU
-        }
-    }
+                    aoTerminar();
+                }
+            }
 
-    escrever();
-}
-
- /* RESERVA O ESPAÇO E SÓ COMEÇA A ESCREVER QUANDO A PESSOA CHEGA NO TEXTO */
-function escreverQuandoVisivel(texto, elemento, velocidade, aoTerminar) {
-
-    reservarTexto(texto, elemento);
-
-    const observador = new IntersectionObserver(function (entradas) {
-
-        if (entradas[0].isIntersecting) {
-
-            observador.disconnect();   // SÓ DISPARA UMA VEZ
-
-            escreverTexto(texto, elemento, velocidade, aoTerminar);
+            escrever();
         }
 
-    }, { threshold: 0.2 });
+        function escreverQuandoVisivel(texto, elemento, velocidade, aoTerminar) {
 
-    observador.observe(elemento);
-}
+            reservarTexto(texto, elemento);
 
+            const observador = new IntersectionObserver(function (entradas) {
+
+                if (entradas[0].isIntersecting) {
+
+                    observador.disconnect();
+
+                    escreverTexto(texto, elemento, velocidade, aoTerminar);
+                }
+
+            }, { threshold: 0.2 });
+
+            observador.observe(elemento);
+        }
+
+
+        /* ================= LETRA DA MÚSICA ================= */
         let intervaloLetra;
         let trocaLetra;
         let letraPausada = false;
@@ -1081,44 +1003,44 @@ function escreverQuandoVisivel(texto, elemento, velocidade, aoTerminar) {
         let palavrasDaFrase = [];
         let atrasoPalavra = 400;
 
-    function mostrarTrechoLetra(trecho) {
+        function mostrarTrechoLetra(trecho) {
 
-        document.querySelector('.area-musica').classList.add('letra-iniciada');
+            document.querySelector('.area-musica').classList.add('letra-iniciada');
 
-        clearTimeout(intervaloLetra);
-        clearTimeout(trocaLetra);
+            clearTimeout(intervaloLetra);
+            clearTimeout(trocaLetra);
 
-        const esquerda = document.getElementById('texto-esquerda');
-        const direita = document.getElementById('texto-direita');
+            const esquerda = document.getElementById('texto-esquerda');
+            const direita = document.getElementById('texto-direita');
 
-        esquerda.style.opacity = '0';
-        direita.style.opacity = '0';
+            esquerda.style.opacity = '0';
+            direita.style.opacity = '0';
 
-        trocaLetra = setTimeout(function () {
-            esquerda.textContent = '';
-            direita.textContent = '';
+            trocaLetra = setTimeout(function () {
+                esquerda.textContent = '';
+                direita.textContent = '';
 
-            frasesAtuais = trecho.texto
-                .split('\n')
-                .filter(frase => frase.trim() !== '');
+                frasesAtuais = trecho.texto
+                    .split('\n')
+                    .filter(frase => frase.trim() !== '');
 
-            /* CALCULA A VELOCIDADE PARA O TRECHO CABER NA JANELA DELE */
-            const totalPalavras = frasesAtuais.join(' ').split(/\s+/).length;
-            const fimReal = Math.min(trecho.fim, 123);          // A MÚSICA PARA EM 123
-            const tempoDisponivel = (fimReal - trecho.inicio) - 2.5;   // DESCONTA O FADE E UMA FOLGA
-            atrasoPalavra = Math.min(400, Math.max(150, tempoDisponivel * 1000 / totalPalavras));
+                /* VELOCIDADE AJUSTADA PARA O TRECHO CABER NA JANELA DELE */
+                const totalPalavras = frasesAtuais.join(' ').split(/\s+/).length;
+                const fimReal = Math.min(trecho.fim, 123);
+                const tempoDisponivel = (fimReal - trecho.inicio) - 2.5;
+                atrasoPalavra = Math.min(400, Math.max(150, tempoDisponivel * 1000 / totalPalavras));
 
-            indiceFrase = 0;
-            indicePalavra = 0;
-            palavrasDaFrase = [];
+                indiceFrase = 0;
+                indicePalavra = 0;
+                palavrasDaFrase = [];
 
-            if (!letraPausada) {
-                esquerda.style.opacity = '1';
-                direita.style.opacity = '1';
-                mostrarProximaPalavra();
-            }
-        }, 1000);
-    }
+                if (!letraPausada) {
+                    esquerda.style.opacity = '1';
+                    direita.style.opacity = '1';
+                    mostrarProximaPalavra();
+                }
+            }, 1000);
+        }
 
         function mostrarProximaPalavra() {
             if (letraPausada) {
@@ -1161,12 +1083,13 @@ function escreverQuandoVisivel(texto, elemento, velocidade, aoTerminar) {
             }
 
             if (indiceFrase < frasesAtuais.length) {
-            intervaloLetra = setTimeout(
-                mostrarProximaPalavra,
-                atrasoPalavra    /* ERA 400 */
-            );
-}
+                intervaloLetra = setTimeout(
+                    mostrarProximaPalavra,
+                    atrasoPalavra
+                );
+            }
         }
+
 
         const letras = [
             {
@@ -1241,7 +1164,9 @@ function escreverQuandoVisivel(texto, elemento, velocidade, aoTerminar) {
             }
         ];
 
-        /* PEGA O ELEMENTO DA MÚSICA */
+
+
+        /* ================= MÚSICA ================= */
         const musica = document.getElementById('musica');
 
         const botaoMusica = document.getElementById('btn-musica');
@@ -1253,7 +1178,7 @@ function escreverQuandoVisivel(texto, elemento, velocidade, aoTerminar) {
 
         let trechoAtual = -1;
 
-         botaoMusica.addEventListener('click', function () {
+        botaoMusica.addEventListener('click', function () {
 
             if (musica.paused) {
 
@@ -1307,9 +1232,9 @@ function escreverQuandoVisivel(texto, elemento, velocidade, aoTerminar) {
 
                 musicaTerminou = true;
 
-                 /* NOVO: TIRA A MARCA, E AS CAIXAS DE LETRA SOMEM */
                 document.querySelector('.area-musica').classList.remove('letra-iniciada');
-                clearTimeout(intervaloLetra); /* NOVO: PARA DE ESCREVER PALAVRAS NAS CAIXAS ESCONDIDAS */
+
+                clearTimeout(intervaloLetra);
 
                 textoEsquerda.style.opacity = '0';
                 textoDireita.style.opacity = '0';
@@ -1341,60 +1266,43 @@ function escreverQuandoVisivel(texto, elemento, velocidade, aoTerminar) {
         });
 
 
-        /* FOTOS DO CARROSSEL */
+        /* ================= CARROSSEL DE FOTOS ================= */
         const fotos = [
             "fotos/foto1.jpeg",
             "fotos/foto2.jpeg",
             "fotos/foto3.jpeg"
         ];
 
-        /* PRÉ-CARREGA AS FOTOS, PARA A TROCA NÃO PISCAR */
         fotos.forEach(function (caminho) {
             new Image().src = caminho;
         });
 
-
-        /* LEGENDAS DE CADA FOTO */
         const legendas = [
             "Você é o compasso certo do meu coração❤️",
             "Com você cada segundo vale a pena❤️",
             "Você é o brigadeiro do meu beijinho❤️"
         ];
 
-
         let fotoAtual = 0;
 
-        /* GUARDA O INTERVALO DO CARROSSEL (evita criar dois) */
         let intervaloCarrossel = null;
 
-
-        /* FUNÇÃO QUE INICIA O CARROSSEL */
         function iniciarCarrossel() {
 
-            /* SE O CARROSSEL JÁ ESTÁ RODANDO, NÃO FAZ NADA */
             if (intervaloCarrossel !== null) {
                 return;
             }
 
-            const imagem =
-                document.getElementById('foto-carrossel');
+            const imagem = document.getElementById('foto-carrossel');
+            const legenda = document.getElementById('legenda-foto');
 
-            const legenda =
-                document.getElementById('legenda-foto');
+            legenda.textContent = legendas[fotoAtual];
 
-            /* PEGA A LEGENDA DA FOTO ATUAL */
-            legenda.textContent =
-                legendas[fotoAtual];
-
-
-            /* TROCA A FOTO A CADA 4 SEGUNDOS, COM FADE */
             intervaloCarrossel = setInterval(function () {
 
-                /* 1. A FOTO E A LEGENDA SOMEM */
                 imagem.style.opacity = '0';
                 legenda.style.opacity = '0';
 
-                /* 2. QUANDO TERMINAR DE SUMIR (0.6s), TROCA E REAPARECE */
                 setTimeout(function () {
 
                     fotoAtual = (fotoAtual + 1) % fotos.length;
@@ -1408,14 +1316,68 @@ function escreverQuandoVisivel(texto, elemento, velocidade, aoTerminar) {
                 }, 600);
 
             }, 4000);
-
         }
 
-        /* EXECUTA A FUNÇÃO QUANDO CLICAR NO BOTÃO SIM */
-        botaoSim.addEventListener(
-            'click',
-            aceitouOPedido
-        );
+        botaoSim.addEventListener('click', aceitouOPedido);
+
+
+        /* ================= BRILHOS DE FUNDO ================= */
+        function criarBrilhos() {
+
+            const container = document.getElementById('brilhos');
+            const telaGrande = window.innerWidth > 900;
+
+            for (let i = 0; i < 14; i++) {
+
+                const brilho = document.createElement('span');
+
+                const tamanho = Math.random() * 120 + 60;
+                brilho.style.width = tamanho + 'px';
+                brilho.style.height = tamanho + 'px';
+
+                let esquerda;
+                if (telaGrande) {
+                    esquerda = Math.random() < 0.5
+                        ? Math.random() * 22
+                        : 78 + Math.random() * 22;
+                } else {
+                    esquerda = Math.random() * 100;
+                }
+
+                brilho.style.left = esquerda + '%';
+                brilho.style.top = Math.random() * 100 + '%';
+
+                brilho.style.animationDuration = (Math.random() * 10 + 14) + 's';
+                brilho.style.animationDelay = '-' + (Math.random() * 20) + 's';
+
+                if (i % 3 === 0) {
+                    brilho.classList.add('rosa');
+                }
+
+                container.appendChild(brilho);
+            }
+        }
+
+        criarBrilhos();
+
+
+        /* ================= BLOCOS QUE ENTRAM AO ROLAR ================= */
+        const observadorRevelar = new IntersectionObserver(function (entradas) {
+
+            entradas.forEach(function (entrada) {
+
+                if (entrada.isIntersecting) {
+
+                    entrada.target.classList.add('revelado');
+                    observadorRevelar.unobserve(entrada.target);
+                }
+            });
+
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.revelar').forEach(function (elemento) {
+            observadorRevelar.observe(elemento);
+        });
 
     </script>
 
